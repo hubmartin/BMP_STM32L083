@@ -55,29 +55,29 @@
  */
 
 /* Hardware definitions... */
-#define JTAG_PORT 	GPIOC
+#define JTAG_PORT 	GPIOA
 #define TDI_PORT	JTAG_PORT
 #define TMS_PORT	JTAG_PORT
 #define TCK_PORT	JTAG_PORT
-#define TDO_PORT	GPIOC
-#define TDI_PIN		GPIO2
-#define TMS_PIN		GPIO4
-#define TCK_PIN		GPIO5
-#define TDO_PIN		GPIO6
+#define TDO_PORT	GPIOA
+#define TDI_PIN		GPIO0
+#define TMS_PIN		GPIO1
+#define TCK_PIN		GPIO2
+#define TDO_PIN		GPIO3
 
 #define SWDIO_PORT 	JTAG_PORT
 #define SWCLK_PORT 	JTAG_PORT
 #define SWDIO_PIN	TMS_PIN
 #define SWCLK_PIN	TCK_PIN
 
-#define TRST_PORT	GPIOC
-#define TRST_PIN	GPIO1
-#define SRST_PORT	GPIOC
-#define SRST_PIN	GPIO8
+#define TRST_PORT	GPIOA
+#define TRST_PIN	GPIO4
+#define SRST_PORT	GPIOA
+#define SRST_PIN	GPIO5
 
 #define LED_PORT	GPIOD
-#define LED_PORT_UART	GPIOD
-#define LED_UART	GPIO12
+#define LED_PORT_UART	GPIOH
+#define LED_UART	GPIO1
 #define LED_IDLE_RUN	GPIO13
 #define LED_ERROR	GPIO14
 #define LED_BOOTLOADER	GPIO15
@@ -98,7 +98,7 @@
 
 #define USB_DRIVER      st_usbfs_v2_usb_driver
 #define USB_IRQ         NVIC_USB_IRQ
-#define USB_ISR         otg_fs_isr
+#define USB_ISR         usb_isr
 /* Interrupt priorities.  Low numbers are high priority.
  * For now USART1 preempts USB which may spin while buffer is drained.
  * TIM3 is used for traceswo capture and must be highest priority.
@@ -108,15 +108,15 @@
 #define IRQ_PRI_USBUSART_TIM	(3 << 4)
 #define IRQ_PRI_TRACE		(0 << 4)
 
-#define USBUSART USART2
-#define USBUSART_CR1 USART2_CR1
-#define USBUSART_IRQ NVIC_USART2_IRQ
-#define USBUSART_CLK RCC_USART2
-#define USBUSART_TX_PORT GPIOD
-#define USBUSART_TX_PIN  GPIO8
-#define USBUSART_RX_PORT GPIOD
-#define USBUSART_RX_PIN  GPIO9
-#define USBUSART_ISR usart2_isr
+#define USBUSART USART1
+#define USBUSART_CR1 USART1_CR1
+#define USBUSART_IRQ NVIC_USART1_IRQ
+#define USBUSART_CLK RCC_USART1
+#define USBUSART_TX_PORT GPIOA
+#define USBUSART_TX_PIN  GPIO9
+#define USBUSART_RX_PORT GPIOA
+#define USBUSART_RX_PIN  GPIO10
+#define USBUSART_ISR usart1_isr
 #define USBUSART_TIM TIM2
 #define USBUSART_TIM_CLK_EN() rcc_periph_clock_enable(RCC_TIM2)
 #define USBUSART_TIM_IRQ NVIC_TIM2_IRQ
@@ -127,8 +127,8 @@
 	                USBUSART_TX_PIN); \
 	gpio_mode_setup(USBUSART_RX_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, \
 	                USBUSART_RX_PIN); \
-	gpio_set_af(USBUSART_TX_PORT, GPIO_AF7, USBUSART_TX_PIN); \
-	gpio_set_af(USBUSART_RX_PORT, GPIO_AF7, USBUSART_RX_PIN); \
+	gpio_set_af(USBUSART_TX_PORT, GPIO_AF4, USBUSART_TX_PIN); \
+	gpio_set_af(USBUSART_RX_PORT, GPIO_AF4, USBUSART_RX_PIN); \
     } while(0)
 /*
 #define TRACE_TIM TIM2

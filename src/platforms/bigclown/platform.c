@@ -45,6 +45,7 @@ void platform_init(void)
 {
 	/* Check the USER button*/
 	rcc_periph_clock_enable(RCC_GPIOA);
+	rcc_periph_clock_enable(RCC_GPIOB);
 
 
 	//hub rcc_clock_setup_hse_3v3(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_48MHZ]);
@@ -80,6 +81,8 @@ void platform_init(void)
 	rcc_periph_clock_enable(RCC_USB);
 	rcc_periph_clock_enable(RCC_GPIOC);
 	rcc_periph_clock_enable(RCC_GPIOD);
+
+	rcc_periph_clock_enable(RCC_GPIOH);
 	rcc_periph_clock_enable(RCC_CRC);
 
 	/* Set up USB Pins and alternate function*/

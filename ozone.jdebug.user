@@ -1,7 +1,7 @@
 OpenWindow="Memory1", DockArea=BOTTOM, x=0, y=0, w=925, h=316, FilterBarShown=0, 
-OpenWindow="Registers", DockArea=RIGHT, x=0, y=0, w=300, h=540, FilterBarShown=0, 
+OpenWindow="Registers", DockArea=RIGHT, x=0, y=0, w=300, h=512, FilterBarShown=0, 
 OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=924, h=316, FilterBarShown=0, 
-OpenWindow="Functions", DockArea=LEFT, x=0, y=0, w=300, h=540, FilterBarShown=1, 
+OpenWindow="Functions", DockArea=LEFT, x=0, y=0, w=300, h=512, FilterBarShown=1, 
 OpenToolbar="Debug", Floating=0, x=0, y=0
 TableHeader="Registers", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[134;77;429]
-TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Source"], ColWidths=[57;69;48;57;63]
+TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Source"], ColWidths=[57;69;48;57;168]
