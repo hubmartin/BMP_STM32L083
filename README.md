@@ -6,6 +6,10 @@ Black Magic Probe
 [![Donate](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N84QYNAM2JJQG)
 [![Kickstarter](https://img.shields.io/badge/kickstarter-back%20us-14e16e.svg)](https://www.kickstarter.com/projects/esden/1bitsy-and-black-magic-probe-demystifying-arm-prog)
 
+
+**BigClown MAKE**
+make PROBE_HOST=bigclown
+
 Firmware for the Black Magic Debug Probe.
 
 The Black Magic Probe is a modern, in-application debugging tool for
