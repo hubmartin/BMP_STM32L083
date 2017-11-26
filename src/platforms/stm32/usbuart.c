@@ -58,11 +58,15 @@ void usbuart_init(void)
 	usart_set_parity(USBUSART, USART_PARITY_NONE);
 	usart_set_flow_control(USBUSART, USART_FLOWCONTROL_NONE);
 
+
+	USBUSART_CR3 |= USART_CR3_OVRDIS;
+
 	/* Finally enable the USART. */
 	usart_enable(USBUSART);
 
 	/* Enable interrupts */
 	USBUSART_CR1 |= USART_CR1_RXNEIE;
+	
 	nvic_set_priority(USBUSART_IRQ, IRQ_PRI_USBUSART);
 	nvic_enable_irq(USBUSART_IRQ);
 
@@ -75,6 +79,9 @@ void usbuart_init(void)
 			rcc_apb2_frequency / USBUART_TIMER_FREQ_HZ * 2 - 1);
 	timer_set_period(USBUSART_TIM,
 			USBUART_TIMER_FREQ_HZ / USBUART_RUN_FREQ_HZ - 1);
+
+	//timer_enable_update_event(USBUSART_TIM);
+	//timer_enable_irq(USBUSART_TIM, TIM_DIER_UIE); //its enabled in usart IRQ
 
 	/* Setup update interrupt in NVIC */
 	nvic_set_priority(USBUSART_TIM_IRQ, IRQ_PRI_USBUSART_TIM);
@@ -218,7 +225,9 @@ void USBUSART_ISR(void)
 	char c = usart_recv(USBUSART);
 
 	#if defined(STM32L0)
-		if (usart_get_flag(USBUSART, USART_ISR_ORE) || usart_get_flag(USBUSART, USART_ISR_FE))
+	volatile uint32_t ore = usart_get_flag(USBUSART, USART_ISR_ORE);
+	volatile uint32_t fe = usart_get_flag(USBUSART, USART_ISR_FE);
+		if (ore || fe)
 			return;
 	#else
 	uint32_t err = USART_SR(USBUSART);

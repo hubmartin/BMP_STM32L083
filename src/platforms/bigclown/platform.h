@@ -28,7 +28,7 @@
 #include "timing.h"
 #include "timing_stm32.h"
 #include "version.h"
-
+#include <libopencm3/cm3/scb.h>
 
 #include <setjmp.h>
 
@@ -110,6 +110,7 @@
 
 #define USBUSART USART1
 #define USBUSART_CR1 USART1_CR1
+#define USBUSART_CR3 USART1_CR3
 #define USBUSART_IRQ NVIC_USART1_IRQ
 #define USBUSART_CLK RCC_USART1
 #define USBUSART_TX_PORT GPIOA

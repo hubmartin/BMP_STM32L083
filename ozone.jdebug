@@ -18,6 +18,8 @@ void OnProjectLoad (void) {
   Project.SetTIFSpeed ("1 MHz");
   Project.AddSvdFile ("Cortex-M0.svd");
   Project.AddSvdFile ("$(InstallDir)/Config/Peripherals/ARMv6M.svd");
+  Project.AddSvdFile ("Cortex-M0.svd");
+  Project.AddSvdFile ("stm32l0x3.svd");
   //
   // User settings
   //

@@ -22,6 +22,7 @@
 #include <libopencm3/cm3/systick.h>
 #include <libopencm3/stm32/rcc.h>
 
+
 uint8_t running_status;
 static volatile uint32_t time_ms;
 
@@ -30,8 +31,17 @@ void platform_timing_init(void)
 	/* Setup heartbeat timer */
 	//hub systick_set_clocksource(STK_CSR_CLKSOURCE_AHB_DIV8);
 	//hub systick_set_reload(900000);	/* Interrupt us at 10 Hz */
+
+	systick_interrupt_disable();
+	systick_counter_disable();
+
 	systick_set_frequency(10, rcc_ahb_frequency);
-	#if !defined(STM32L0)
+	#if defined(STM32L0)
+	//SCB_SHPR3 |= 0x03 << 24;
+	//MMIO32(SCB_BASE + 0x20) |= 0x03 << 24;
+	SCB_SHPR(11) &= ~((15 << 4) & 0xff);
+	SCB_SHPR(11) |= ((0x03 << 4) & 0xff);
+	#else
 	SCB_SHPR(11) &= ~((15 << 4) & 0xff);
 	SCB_SHPR(11) |= ((14 << 4) & 0xff);
 	#endif
