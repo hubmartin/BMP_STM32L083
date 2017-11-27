@@ -222,13 +222,18 @@ void usbuart_usb_in_cb(usbd_device *dev, uint8_t ep)
  */
 void USBUSART_ISR(void)
 {
+	gpio_set(GPIOB, GPIO9);
+
 	char c = usart_recv(USBUSART);
 
 	#if defined(STM32L0)
 	volatile uint32_t ore = usart_get_flag(USBUSART, USART_ISR_ORE);
 	volatile uint32_t fe = usart_get_flag(USBUSART, USART_ISR_FE);
 		if (ore || fe)
+		{
+			gpio_clear(GPIOB, GPIO8);
 			return;
+		}
 	#else
 	uint32_t err = USART_SR(USBUSART);
 	if (err & (USART_SR_ORE | USART_SR_FE))
@@ -252,18 +257,28 @@ void USBUSART_ISR(void)
 			buf_rx_in = 0;
 		}
 
+		//timer_disable_counter(USBUSART_TIM);
+		//timer_set_counter(USBUSART_TIM, 0);
+		//timer_clear_flag(USBUSART_TIM, TIM_SR_UIF);
 		/* enable deferred processing if we put data in the FIFO */
 		timer_enable_irq(USBUSART_TIM, TIM_DIER_UIE);
+		//timer_enable_counter(USBUSART_TIM);
+
 	}
+
+	gpio_clear(GPIOB, GPIO9);
 }
 
 void USBUSART_TIM_ISR(void)
 {
+	gpio_set(GPIOB, GPIO8);
 	/* need to clear timer update event */
 	timer_clear_flag(USBUSART_TIM, TIM_SR_UIF);
 
 	/* process FIFO */
 	usbuart_run();
+
+	gpio_clear(GPIOB, GPIO8);
 }
 
 #ifdef ENABLE_DEBUG

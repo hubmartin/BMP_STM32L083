@@ -103,6 +103,20 @@ void platform_init(void)
 			GPIO_PUPD_NONE,
 			LED_UART | LED_IDLE_RUN | LED_ERROR | LED_BOOTLOADER);
 
+
+	// USART RX IRQ gpio
+	gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO9);
+	// TIM USART
+	gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO8);
+
+		// set IRQ priorities manually, nvic_set_priority dont work
+		// on STM32F0, because this CPU allows only WORD access to these registers
+		MMIO32(0xE000E40C) = 0xC0000000;
+		MMIO32(0xE000E418) = 0x40000000;
+		MMIO32(0xE000E41C) = 0x80000000;
+
+	
+
 	platform_timing_init();
 	usbuart_init();
 	cdcacm_init();

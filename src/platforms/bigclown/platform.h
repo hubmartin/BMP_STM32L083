@@ -84,6 +84,7 @@
 #define BOOTMAGIC0 0xb007da7a
 #define BOOTMAGIC1 0xbaadfeed
 
+
 #define TMS_SET_MODE() \
 	gpio_mode_setup(TMS_PORT, GPIO_MODE_OUTPUT, \
 	                GPIO_PUPD_NONE, TMS_PIN);
@@ -103,10 +104,10 @@
  * For now USART1 preempts USB which may spin while buffer is drained.
  * TIM3 is used for traceswo capture and must be highest priority.
  */
-#define IRQ_PRI_USB		(2 << 4)
-#define IRQ_PRI_USBUSART	(1 << 4)
-#define IRQ_PRI_USBUSART_TIM	(3 << 4)
-#define IRQ_PRI_TRACE		(0 << 4)
+#define IRQ_PRI_USB		(2 << 6)
+#define IRQ_PRI_USBUSART	(1 << 6)
+#define IRQ_PRI_USBUSART_TIM	(3 << 6)
+#define IRQ_PRI_TRACE		(0 << 6)
 
 #define USBUSART USART1
 #define USBUSART_CR1 USART1_CR1
