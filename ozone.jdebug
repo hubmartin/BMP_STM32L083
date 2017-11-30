@@ -23,7 +23,7 @@ void OnProjectLoad (void) {
   //
   // User settings
   //
-  File.Open ("/home/martin/blackmagic/src/blackmagic");
+  File.Open ("./src/blackmagic");
 }
 
 /*********************************************************************

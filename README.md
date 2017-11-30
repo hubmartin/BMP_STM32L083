@@ -4,6 +4,21 @@ BigClown port of Black Magic Probe to Core Module
 
 [![Twitter](https://img.shields.io/twitter/follow/BigClownLabs.svg?style=social&label=Follow)](https://twitter.com/BigClownLabs)
 
+## Two released versions
+
+#### SWD on P1 & P2
+
+In releases there are two versions which have different pins for SWD signals (the reset signals stays). The "P1_P2" release has SWD signals on these two pins, please see the pinout section.
+
+#### SWD on 10pin JTAG connector
+
+If you like living on the edge, then use the "SWD_ON_JTAG" release where just the SWD CLK and DIO is routed to the 10 pin JTAG connector on Core Module. This way you can connect both modules by 1mm pitch 10 pin programming connector.
+
+**----------- IMPORTANT ----------**
+The target you are programming takes down the RESET signal for a while and also resets the programmer. Workaround is to cut the RESET wire on the programming cable or put at least 2k7 or bigger value resistor.
+
+ Also there could be some power supply issues in case both modules are powered by USB or batteries because both regulated power supplies are connected together but it seems like it's working for now ;) You can also cut the Vcc wire and supply voltage to the target by other USB or Battery Modules.
+**----------- IMPORTANT ----------**
 
 ## How to flash
 
@@ -13,18 +28,18 @@ Download latest binary from release. Set Core Module to boot mode and flash usin
 bcf flash --dfu core_module_blackmagic.bin
 ```
 
-## How to build
-Not neccessary, but if you would like to recompile the binary:
-```
-make PROBE_HOST=bigclown
-```
-
 ## Core-Module pinout
+
+This table is true only in "P1_P2" releases. Otherwise SWD signals are on the Core Module JTAG connector.
 
 | Core Pin  | GPIO Pin  | Function  | 
 |-----------|-----------|-----------|
-| P1        | PA1       | SWD_DIO   | 
-| P2        | PA2       | SWD_CLK   | 
+| P0        | PA0       | JTAG_TDI  | 
+| **P1**    | **PA1**   |**SWD_DIO**  / JTAG_TMS | 
+| **P2**    | **PA2**   |**SWD_CLK** / JTAG_TCK | 
+| P3        | PA3       | JTAG_TDO  | 
+| P4        | PA4       | JTAG_TRST | 
+| P5        | PA5       | JTAG_SRST | 
 | P11       | PA9       | UART TX   | 
 | P10       | PA10      | UART RX   | 
 
@@ -32,9 +47,14 @@ make PROBE_HOST=bigclown
 
 https://sites.google.com/site/hubmartin/arm/black-magic-probe-vs-code
 
-## Pinout definition
 
-https://github.com/hubmartin/BMP_STM32L083/blob/master/src/platforms/bigclown/platform.h#L68
+## How to build
+Not neccessary, but if you would like to recompile the binary:
+```
+make PROBE_HOST=bigclown
+```
+The SWD output is possible to change by **SWD_ON_JTAG** define which is in the bigclown/platform.h.
+
 
 ## GDB Command
 

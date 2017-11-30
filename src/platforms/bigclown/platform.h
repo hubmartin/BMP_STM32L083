@@ -63,14 +63,16 @@
 #define TDI_PIN		GPIO0
 #define TDO_PIN		GPIO3
 
-//#define SWD_ON_JTAG
+#define SWD_ON_JTAG
 
 #ifdef SWD_ON_JTAG
 	#define TCK_PIN		GPIO14
 	#define TMS_PIN		GPIO13
+	#define OSPEED_VALUE (GPIO_OSPEED(13, GPIO_SPEED) | GPIO_OSPEED(14, GPIO_SPEED))
 #else
 	#define TCK_PIN		GPIO2
 	#define TMS_PIN		GPIO1
+	#define OSPEED_VALUE (GPIO_OSPEED(1, GPIO_SPEED) | GPIO_OSPEED(2, GPIO_SPEED))
 #endif
 
 #define SWDIO_PORT 	JTAG_PORT
