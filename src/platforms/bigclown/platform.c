@@ -43,10 +43,8 @@ extern uint32_t _ebss;
 
 void platform_init(void)
 {
-	/* Check the USER button*/
 	rcc_periph_clock_enable(RCC_GPIOA);
 	rcc_periph_clock_enable(RCC_GPIOB);
-
 
 	//hub rcc_clock_setup_hse_3v3(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_48MHZ]);
 	/* PLL from HSI16, just to exercise that code */
@@ -79,8 +77,8 @@ void platform_init(void)
 
 	/* Enable peripherals */
 	rcc_periph_clock_enable(RCC_USB);
-	rcc_periph_clock_enable(RCC_GPIOC);
-	rcc_periph_clock_enable(RCC_GPIOD);
+	//rcc_periph_clock_enable(RCC_GPIOC);
+	//rcc_periph_clock_enable(RCC_GPIOD);
 
 	rcc_periph_clock_enable(RCC_GPIOH);
 	rcc_periph_clock_enable(RCC_CRC);
@@ -112,13 +110,11 @@ void platform_init(void)
 	// TIM USART
 	gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO8);
 
-		// set IRQ priorities manually, nvic_set_priority dont work
-		// on STM32F0, because this CPU allows only WORD access to these registers
-		MMIO32(0xE000E40C) = 0xC0000000;
-		MMIO32(0xE000E418) = 0x40000000;
-		MMIO32(0xE000E41C) = 0x80000000;
-
-	
+	// set IRQ priorities manually, libopencm3 nvic_set_priority dont work
+	// on STM32F0, because this CPU allows only WORD access to these registers
+	MMIO32(0xE000E40C) = 0xC0000000;
+	MMIO32(0xE000E418) = 0x40000000;
+	MMIO32(0xE000E41C) = 0x80000000;	
 
 	platform_timing_init();
 	usbuart_init();
@@ -130,7 +126,7 @@ bool platform_srst_get_val(void) { return false; }
 
 const char *platform_target_voltage(void)
 {
-	return "ABSENT!";
+	return "[not implemented]";
 }
 
 void platform_request_boot(void)

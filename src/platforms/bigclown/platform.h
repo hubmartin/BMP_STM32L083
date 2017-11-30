@@ -61,9 +61,17 @@
 #define TCK_PORT	JTAG_PORT
 #define TDO_PORT	GPIOA
 #define TDI_PIN		GPIO0
-#define TMS_PIN		GPIO1
-#define TCK_PIN		GPIO2
 #define TDO_PIN		GPIO3
+
+//#define SWD_ON_JTAG
+
+#ifdef SWD_ON_JTAG
+	#define TCK_PIN		GPIO14
+	#define TMS_PIN		GPIO13
+#else
+	#define TCK_PIN		GPIO2
+	#define TMS_PIN		GPIO1
+#endif
 
 #define SWDIO_PORT 	JTAG_PORT
 #define SWCLK_PORT 	JTAG_PORT
