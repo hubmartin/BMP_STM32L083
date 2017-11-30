@@ -1,10 +1,9 @@
-Black Magic Probe
+BigClown port of Black Magic Probe to Core Module
 =================
 
-[![Build Status](https://travis-ci.org/blacksphere/blackmagic.svg?branch=master)](https://travis-ci.org/blacksphere/blackmagic)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/blacksphere/blackmagic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Donate](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N84QYNAM2JJQG)
-[![Kickstarter](https://img.shields.io/badge/kickstarter-back%20us-14e16e.svg)](https://www.kickstarter.com/projects/esden/1bitsy-and-black-magic-probe-demystifying-arm-prog)
+
+[![Twitter](https://img.shields.io/twitter/follow/BigClownLabs.svg?style=social&label=Follow)](https://twitter.com/BigClownLabs)
+
 
 ## How to flash
 
@@ -28,6 +27,14 @@ make PROBE_HOST=bigclown
 | P2        | PA2       | SWD_CLK   | 
 | P11       | PA9       | UART TX   | 
 | P10       | PA10      | UART RX   | 
+
+## VSCode launch.json
+
+https://sites.google.com/site/hubmartin/arm/black-magic-probe-vs-code
+
+## Pinout definition
+
+https://github.com/hubmartin/BMP_STM32L083/blob/master/src/platforms/bigclown/platform.h#L68
 
 ## GDB Command
 
@@ -76,11 +83,6 @@ Transfer rate: 5 KB/sec, 915 bytes/write.
 Continuing.
 ```
 
-VSCode launch.json
-https://sites.google.com/site/hubmartin/arm/black-magic-probe-vs-code
-
-Pin definitions with JTAG pins
-https://github.com/hubmartin/BMP_STM32L083/blob/master/src/platforms/bigclown/platform.h#L68
 
 ## Blackmagic official text
 
